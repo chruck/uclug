@@ -1,0 +1,984 @@
+This is the commandline session of 2017 Aug 8 meeting on Git basics.
+
+My prompt ($PS1) is:
+
+${hostname}[${time}](${exitcode})(${gitbranch})${currentdirectory}$
+
+For example, the next line indicates I was on "stack" (my laptop), at
+19:48, the previous command exited without error (0) and I was in my
+home directory (~).  The directory was not a git repository, so there
+was no git branch.
+
+stack[19:48:32](0)~$ cd src/
+stack[19:52:00](0)~/src$ ls
+AttoDrivers         cu-firewall        jasix
+CoreInfraServices   cuihhsigit01       jassalt
+GHOST.c             devEnv             jdburton
+StandardImage       dockerfiles        libvirt
+UltimateControl1.2  dot.bashrc.jas     qa
+adobeflash11        engineroom         salt-vim
+adobeflash24        flockport-install  saltstack
+asam                gitThee            spacewalk-scripts
+bin                 gitthee            spacewalk-scripts.upstream
+configure           greasemonkey       sshDocker
+cpsc4810            harbinger          ultimate_control_v1.2_linux_64bit.tar.gz
+cpsc8220            hhs-firewall       zfsServerBuild
+
+Remember that my first attempt on Github was to create a repo with
+nothing in it.  I later deleted it and recreated it, populated with
+Github-provided .gitignore, LICENSE, and README.md files.
+
+stack[19:52:01](0)~/src$ git clone git@github.com:chruck/uclug.git
+Cloning into 'uclug'...
+warning: You appear to have cloned an empty repository.
+Checking connectivity... done.
+stack[19:52:49](0)~/src$ ls
+AttoDrivers         cuihhsigit01       jdburton
+CoreInfraServices   devEnv             libvirt
+GHOST.c             dockerfiles        qa
+StandardImage       dot.bashrc.jas     salt-vim
+UltimateControl1.2  engineroom         saltstack
+adobeflash11        flockport-install  spacewalk-scripts
+adobeflash24        gitThee            spacewalk-scripts.upstream
+asam                gitthee            sshDocker
+bin                 greasemonkey       uclug
+configure           harbinger          ultimate_control_v1.2_linux_64bit.tar.gz
+cpsc4810            hhs-firewall       zfsServerBuild
+cpsc8220            jasix
+cu-firewall         jassalt
+stack[19:53:03](0)~/src$ cd uclug/
+stack[19:53:09](0)~/src/uclug$ ls -al
+total 0
+drwxrwxr-x 1 jas jas   8 Aug  8 19:52 .
+drwxrwxr-x 1 jas jas 814 Aug  8 19:52 ..
+drwxrwxr-x 1 jas jas  98 Aug  8 19:52 .git
+stack[19:53:11](0)~/src/uclug$ find .git/
+.git/
+.git/refs
+.git/refs/heads
+.git/refs/tags
+.git/hooks
+.git/hooks/pre-applypatch.sample
+.git/hooks/prepare-commit-msg.sample
+.git/hooks/commit-msg.sample
+.git/hooks/pre-rebase.sample
+.git/hooks/post-update.sample
+.git/hooks/pre-commit.sample
+.git/hooks/update.sample
+.git/hooks/pre-push.sample
+.git/hooks/applypatch-msg.sample
+.git/info
+.git/info/exclude
+.git/branches
+.git/description
+.git/HEAD
+.git/objects
+.git/objects/pack
+.git/objects/info
+.git/config
+stack[19:53:27](0)~/src/uclug$ ls
+stack[19:53:52](0)~/src/uclug$ ls -al
+total 0
+drwxrwxr-x 1 jas jas   8 Aug  8 19:52 .
+drwxrwxr-x 1 jas jas 814 Aug  8 19:52 ..
+drwxrwxr-x 1 jas jas  98 Aug  8 19:52 .git
+stack[19:53:55](0)~/src/uclug$ cp ~/.vi
+.vim/           .vimrc.jas      .vimrc.jas~
+.viminfo        .vimrc.jas.bak  .virt-manager/
+stack[19:53:55](0)~/src/uclug$ cp ~/.vim
+.vim/           .vimrc.jas      .vimrc.jas~
+.viminfo        .vimrc.jas.bak
+stack[19:53:55](0)~/src/uclug$ cp ~/.vimr
+.vimrc.jas      .vimrc.jas.bak  .vimrc.jas~
+stack[19:53:55](0)~/src/uclug$ cp ~/.vimrc.jas .
+sending incremental file list
+.vimrc.jas
+         10,685 100%    0.00kB/s    0:00:00 (xfr#1, to-chk=0/1)
+
+sent 10,791 bytes  received 35 bytes  21,652.00 bytes/sec
+total size is 10,685  speedup is 0.99
+stack[19:54:26](0)~/src/uclug$ ls -al
+total 12
+drwxrwxr-x 1 jas jas    28 Aug  8 19:54 .
+drwxrwxr-x 1 jas jas   814 Aug  8 19:52 ..
+drwxrwxr-x 1 jas jas    98 Aug  8 19:52 .git
+-rw-rw-r-- 1 jas jas 10685 Aug  8 17:29 .vimrc.jas
+stack[19:54:29](0)~/src/uclug$ git status
+On branch master
+
+Initial commit
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        .vimrc.jas
+
+nothing added to commit but untracked files present (use "git add" to track)
+stack[19:54:43](0)~/src/uclug$ git push
+No refs in common and none specified; doing nothing.
+Perhaps you should specify a branch such as 'master'.
+error: failed to push some refs to 'git@github.com:chruck/uclug.git'
+stack[19:55:12](1)~/src/uclug$ git add .vimrc.jas
+stack[19:56:37](0)~/src/uclug$ git status
+On branch master
+
+Initial commit
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   .vimrc.jas
+
+stack[19:56:40](0)~/src/uclug$ git commit
+
+Added Jas' vimrc
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#       new file:   .vimrc.jas
+#
+~
+~
+".git/COMMIT_EDITMSG" 10L, 246C written
+[master (root-commit) 3576f7a] Added Jas' vimrc
+ 1 file changed, 327 insertions(+)
+ create mode 100644 .vimrc.jas
+stack[20:01:13](0)(master)~/src/uclug$ git status
+On branch master
+Your branch is based on 'origin/master', but the upstream is gone.
+  (use "git branch --unset-upstream" to fixup)
+nothing to commit, working directory clean
+stack[20:01:44](0)(master)~/src/uclug$ git remote -v
+origin  git@github.com:chruck/uclug.git (fetch)
+origin  git@github.com:chruck/uclug.git (push)
+stack[20:02:06](0)(master)~/src/uclug$ git push
+No refs in common and none specified; doing nothing.
+Perhaps you should specify a branch such as 'master'.
+error: failed to push some refs to 'git@github.com:chruck/uclug.git'
+stack[20:02:15](1)(master)~/src/uclug$ git branch
+* master
+stack[20:02:20](0)(master)~/src/uclug$ git init
+Reinitialized existing Git repository in /home/jas/src/uclug/.git/
+stack[20:02:55](0)(master)~/src/uclug$ git status
+On branch master
+Your branch is based on 'origin/master', but the upstream is gone.
+  (use "git branch --unset-upstream" to fixup)
+nothing to commit, working directory clean
+stack[20:02:59](0)(master)~/src/uclug$ git push
+No refs in common and none specified; doing nothing.
+Perhaps you should specify a branch such as 'master'.
+error: failed to push some refs to 'git@github.com:chruck/uclug.git'
+stack[20:03:05](1)(master)~/src/uclug$ cd ..
+
+It was at this point I started over, deleting the repo on Github and
+rebuilding it with Github-generated .gitignore, LICENSE, and README.md
+files.
+
+stack[20:03:13](0)~/src$ rm -rf uclug/
+stack[20:03:19](0)~/src$ git clone git@github.com:chruck/uclug.git
+Cloning into 'uclug'...
+remote: Counting objects: 5, done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 5 (delta 0), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (5/5), 12.44 KiB | 0 bytes/s, done.
+Checking connectivity... done.
+stack[20:05:46](0)~/src$ cd uclug/
+stack[20:05:49](0)(master)~/src/uclug$ ls -al
+total 44
+drwxrwxr-x 1 jas jas    60 Aug  8 20:05 .
+drwxrwxr-x 1 jas jas   814 Aug  8 20:05 ..
+drwxrwxr-x 1 jas jas   138 Aug  8 20:05 .git
+-rw-rw-r-- 1 jas jas   430 Aug  8 20:05 .gitignore
+-rw-rw-r-- 1 jas jas 35141 Aug  8 20:05 LICENSE
+-rw-rw-r-- 1 jas jas    35 Aug  8 20:05 README.md
+stack[20:05:53](0)(master)~/src/uclug$ head Li
+head: cannot open 'Li' for reading: No such file or directory
+stack[20:06:12](1)(master)~/src/uclug$ head LICENSE
+                    GNU GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
+
+ Copyright (C) 2007 Free Software Foundation, Inc. <http://fsf.org/>
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
+                            Preamble
+
+  The GNU General Public License is a free, copyleft license for
+stack[20:06:15](0)(master)~/src/uclug$ cat README.md
+# uclug
+Demo of Git on Aug 8, 2017
+stack[20:06:25](0)(master)~/src/uclug$ cat .gi
+.git/       .gitignore
+stack[20:06:25](0)(master)~/src/uclug$ cat .gitignore
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+stack[20:06:40](0)(master)~/src/uclug$ !cp
+cp ~/.vimrc.jas .
+sending incremental file list
+.vimrc.jas
+         10,685 100%    0.00kB/s    0:00:00 (xfr#1, to-chk=0/1)
+
+sent 10,791 bytes  received 35 bytes  21,652.00 bytes/sec
+total size is 10,685  speedup is 0.99
+stack[20:06:52](0)(master)~/src/uclug$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        .vimrc.jas
+
+nothing added to commit but untracked files present (use "git add" to track)
+stack[20:06:59](0)(master)~/src/uclug$ git add .vimrc.jas
+stack[20:07:16](0)(master)~/src/uclug$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   .vimrc.jas
+
+stack[20:07:57](0)(master)~/src/uclug$ git commit -m"Added Jas' vimrc"
+[master 150ad35] Added Jas' vimrc
+ 1 file changed, 327 insertions(+)
+ create mode 100644 .vimrc.jas
+stack[20:08:21](0)(master)~/src/uclug$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+nothing to commit, working directory clean
+stack[20:08:25](0)(master)~/src/uclug$ git push
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 4.21 KiB | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To git@github.com:chruck/uclug.git
+   e11e1ef..150ad35  master -> master
+stack[20:09:08](0)(master)~/src/uclug$ git pull
+Already up-to-date.
+stack[20:11:43](0)(master)~/src/uclug$ cd ..
+stack[20:15:22](0)~/src$ git clone git@github.com:chruck/uclug.git UCLUG
+Cloning into 'UCLUG'...
+remote: Counting objects: 8, done.
+remote: Compressing objects: 100% (7/7), done.
+Receiving objects: 100% (8/8), 16.52 KiB | 0 bytes/s, done.
+Resolving deltas: 100% (1/1), done.
+remote: Total 8 (delta 1), reused 3 (delta 0), pack-reused 0
+Checking connectivity... done.
+stack[20:15:41](0)~/src$ ls
+AttoDrivers         cu-firewall        jassalt
+CoreInfraServices   cuihhsigit01       jdburton
+GHOST.c             devEnv             libvirt
+StandardImage       dockerfiles        qa
+UCLUG               dot.bashrc.jas     salt-vim
+UltimateControl1.2  engineroom         saltstack
+adobeflash11        flockport-install  spacewalk-scripts
+adobeflash24        gitThee            spacewalk-scripts.upstream
+asam                gitthee            sshDocker
+bin                 greasemonkey       uclug
+configure           harbinger          ultimate_control_v1.2_linux_64bit.tar.gz
+cpsc4810            hhs-firewall       zfsServerBuild
+cpsc8220            jasix
+stack[20:15:43](0)~/src$ ls uclug/
+LICENSE  README.md
+stack[20:15:54](0)~/src$ ls UCLUG/
+LICENSE  README.md
+stack[20:16:00](0)~/src$ cd !$
+cd UCLUG/
+stack[20:16:03](0)(master)~/src/UCLUG$ ls
+LICENSE  README.md
+stack[20:16:04](0)(master)~/src/UCLUG$ ls -al
+total 56
+drwxrwxr-x 1 jas jas    80 Aug  8 20:15 .
+drwxrwxr-x 1 jas jas   824 Aug  8 20:15 ..
+drwxrwxr-x 1 jas jas   138 Aug  8 20:15 .git
+-rw-rw-r-- 1 jas jas   430 Aug  8 20:15 .gitignore
+-rw-rw-r-- 1 jas jas 10685 Aug  8 20:15 .vimrc.jas
+-rw-rw-r-- 1 jas jas 35141 Aug  8 20:15 LICENSE
+-rw-rw-r-- 1 jas jas    35 Aug  8 20:15 README.md
+stack[20:16:06](0)(master)~/src/UCLUG$ vi README.md
+
+# uclug
+Demo of Git on Aug 8, 2017
+
+Jas is awesome
+~
+~
+"README.md" 4L, 51C written
+
+stack[20:16:21](0)(master)~/src/UCLUG$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+stack[20:16:27](0)(master)~/src/UCLUG$ git diff RE
+README.md   README.md~
+stack[20:16:27](0)(master)~/src/UCLUG$ git diff README.md
+diff --git a/README.md b/README.md
+index 7b94733..8a75fce 100644
+--- a/README.md
++++ b/README.md
+@@ -1,2 +1,4 @@
+ # uclug
+ Demo of Git on Aug 8, 2017
++
++Jas is awesome
+stack[20:16:58](0)(master)~/src/UCLUG$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+stack[20:17:28](0)(master)~/src/UCLUG$ git add README.md
+stack[20:17:44](0)(master)~/src/UCLUG$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   README.md
+
+stack[20:17:47](0)(master)~/src/UCLUG$ git commit -m"Everyone needs to know about Jas"
+[master 98dd036] Everyone needs to know about Jas
+ 1 file changed, 2 insertions(+)
+stack[20:18:22](0)(master)~/src/UCLUG$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+nothing to commit, working directory clean
+stack[20:18:26](0)(master)~/src/UCLUG$ git push
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 321 bytes | 0 bytes/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To git@github.com:chruck/uclug.git
+   150ad35..98dd036  master -> master
+stack[20:18:49](0)(master)~/src/UCLUG$ vi R
+README.md   README.md~
+stack[20:18:49](0)(master)~/src/UCLUG$ cd ../uclug/
+stack[20:21:05](0)(master)~/src/uclug$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+nothing to commit, working directory clean
+stack[20:21:10](0)(master)~/src/uclug$ vi README.md
+
+# uclug
+Demo of Git on Aug 8, 2017
+
+Jas is rotten
+~
+~
+"README.md" 4L, 50C written
+
+stack[20:21:33](0)(master)~/src/uclug$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+stack[20:21:36](0)(master)~/src/uclug$ git add README.md
+stack[20:21:41](0)(master)~/src/uclug$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   README.md
+
+stack[20:21:43](0)(master)~/src/uclug$ git diff
+stack[20:21:49](0)(master)~/src/uclug$ git diff --
+--abbrev                --find-copies-harder    --ours
+--base                  --full-index            --patch-with-stat
+--binary                --histogram             --patience
+--cached                --ignore-all-space      --pickaxe-all
+--check                 --ignore-blank-lines    --pickaxe-regex
+--color                 --ignore-space-at-eol   --quiet
+--color-words           --ignore-space-change   --raw
+--cumulative            --inter-hunk-context=   --shortstat
+--diff-algorithm=       --minimal               --src-prefix=
+--diff-filter=          --name-only             --staged
+--dirstat               --name-status           --stat
+--dirstat-by-file       --no-color              --summary
+--dirstat-by-file=      --no-ext-diff           --text
+--dirstat=              --no-index              --theirs
+--dst-prefix=           --no-prefix             --word-diff
+--exit-code             --no-renames            --word-diff-regex=
+--ext-diff              --numstat
+stack[20:21:49](0)(master)~/src/uclug$ git diff --st
+--staged   --stat
+stack[20:21:49](0)(master)~/src/uclug$ git diff --staged
+diff --git a/README.md b/README.md
+index 7b94733..95091a0 100644
+--- a/README.md
++++ b/README.md
+@@ -1,2 +1,4 @@
+ # uclug
+ Demo of Git on Aug 8, 2017
++
++Jas is rotten
+stack[20:22:20](0)(master)~/src/uclug$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   README.md
+
+stack[20:22:35](0)(master)~/src/uclug$ git commit -m"That no-good Jas"
+[master d31457f] That no-good Jas
+ 1 file changed, 2 insertions(+)
+stack[20:22:50](0)(master)~/src/uclug$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+nothing to commit, working directory clean
+stack[20:22:53](0)(master)~/src/uclug$ git push
+To git@github.com:chruck/uclug.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'git@github.com:chruck/uclug.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+stack[20:23:05](1)(master)~/src/uclug$ git pull
+remote: Counting objects: 6, done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 6 (delta 3), reused 4 (delta 1), pack-reused 0
+Unpacking objects: 100% (6/6), done.
+From github.com:chruck/uclug
+   150ad35..499630f  master     -> origin/master
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.
+stack[20:24:07](1)(master)~/src/uclug$ git status
+On branch master
+Your branch and 'origin/master' have diverged,
+and have 1 and 2 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+        both modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+stack[20:24:16](0)(master)~/src/uclug$ vi R
+README.md   README.md~
+stack[20:24:16](0)(master)~/src/uclug$ vi README.md
+
+# uclug
+Demo of Git on Aug 8, 2017
+
+<<<<<<< HEAD
+Jas is rotten
+=======
+Jas is awesome
+
+Documentation is even MORE awesome!
+>>>>>>> 499630f78b91ce29ff621a43c2d23477dde33f60
+~
+~
+
+stack[20:24:42](0)(master)~/src/uclug$ ls
+LICENSE  README.md  README.md~
+stack[20:24:43](0)(master)~/src/uclug$ vi R
+README.md   README.md~
+stack[20:24:43](0)(master)~/src/uclug$ vi README.md
+
+<<<<<<< HEAD
+=======
+Jas is awesome
+# uclug
+Demo of Git on Aug 8, 2017
+
+Jas is rotten
+
+Documentation is even MORE awesome!
+~
+~
+"README.md" 6L, 87C written
+
+stack[20:25:26](0)(master)~/src/uclug$ git status
+On branch master
+Your branch and 'origin/master' have diverged,
+and have 1 and 2 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+        both modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+stack[20:25:29](0)(master)~/src/uclug$ git push
+To git@github.com:chruck/uclug.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:chruck/uclug.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+stack[20:25:38](1)(master)~/src/uclug$ vi README.md
+
+# uclug
+Demo of Git on Aug 8, 2017
+
+Jas is rotten
+
+Documentation is even MORE awesome!
+~
+~
+
+stack[20:25:44](0)(master)~/src/uclug$ git status
+On branch master
+Your branch and 'origin/master' have diverged,
+and have 1 and 2 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+        both modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+stack[20:26:04](0)(master)~/src/uclug$ git add README.md
+stack[20:26:08](0)(master)~/src/uclug$ git status
+On branch master
+Your branch and 'origin/master' have diverged,
+and have 1 and 2 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+All conflicts fixed but you are still merging.
+  (use "git commit" to conclude merge)
+
+Changes to be committed:
+
+        modified:   README.md
+
+stack[20:26:11](0)(master)~/src/uclug$ git commit -m"No, he's really rotten"
+[master 8262d96] No, he's really rotten
+stack[20:26:28](0)(master)~/src/uclug$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 2 commits.
+  (use "git push" to publish your local commits)
+nothing to commit, working directory clean
+stack[20:26:32](0)(master)~/src/uclug$ git push
+Counting objects: 6, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 603 bytes | 0 bytes/s, done.
+Total 6 (delta 3), reused 0 (delta 0)
+remote: Resolving deltas: 100% (3/3), completed with 1 local object.
+To git@github.com:chruck/uclug.git
+   499630f..8262d96  master -> master
+stack[20:26:41](0)(master)~/src/uclug$ git branch
+* master
+stack[20:34:09](0)(master)~/src/uclug$ cat ~/.git
+.git-credential-cache/ .gitconfig.bak         .gitignore.bak
+.gitconfig             .gitignore
+stack[20:34:09](0)(master)~/src/uclug$ cat ~/.gitc
+.gitconfig      .gitconfig.bak
+stack[20:34:09](0)(master)~/src/uclug$ cat ~/.gitconfig
+# Created by .bashrc.jas JAS_ROX=20170806
+
+[user]
+        name = Jas Eckard
+        email = eckard@clemson.edu
+[alias]
+        br = branch
+        ci = commit
+        co = checkout
+        st = status
+        mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2' -
+[color]
+        branch = auto
+        diff = auto
+        status = auto
+[core]
+        excludesfile = /home/jas/.gitignore
+[credential]
+        helper = cache
+[pager]
+        diff =
+[push]
+        default = matching
+stack[20:35:05](0)(master)~/src/uclug$ git log
+commit 8262d96442cbaa099e8726aed3cfc20b593f1383
+Merge: d31457f 499630f
+Author: Jas Eckard <eckard@clemson.edu>
+Date:   Tue Aug 8 20:26:28 2017 -0400
+
+    No, he's really rotten
+
+commit d31457f9c1f3adf1b17fd15b292ad5146ff6dd72
+Author: Jas Eckard <eckard@clemson.edu>
+Date:   Tue Aug 8 20:22:50 2017 -0400
+
+    That no-good Jas
+
+commit 499630f78b91ce29ff621a43c2d23477dde33f60
+Author: Jonathan Nalley <jonathan@gogreencloud.com>
+Date:   Wed Aug 9 00:19:40 2017 +0000
+
+    documenting readme changes is very meta
+
+commit 98dd036c3651e3999a6b1be472857a80d0c949b1
+Author: Jas Eckard <eckard@clemson.edu>
+Date:   Tue Aug 8 20:18:22 2017 -0400
+
+    Everyone needs to know about Jas
+
+commit 150ad351adfc899db3ccb43e5272be9791c70cd0
+Author: Jas Eckard <eckard@clemson.edu>
+stack[20:39:02](0)(master)~/src/uclug$ git diff
+FETCH_HEAD      ORIG_HEAD       origin/HEAD
+HEAD            master          origin/master
+stack[20:39:02](0)(master)~/src/uclug$ git diff RE
+README.md   README.md~
+stack[20:39:02](0)(master)~/src/uclug$ git diff README.md d31457f9c1f3adf1b17fd15b292ad5146ff6dd72
+fatal: d31457f9c1f3adf1b17fd15b292ad5146ff6dd72: no such path in the working tree.
+Use 'git <command> -- <path>...' to specify paths that do not exist locally.
+stack[20:39:23](128)(master)~/src/uclug$ git diff d31457f9c1f3adf1b17fd15b292ad5146ff6dd72 README.md
+diff --git a/README.md b/README.md
+index 95091a0..925eb48 100644
+--- a/README.md
++++ b/README.md
+@@ -2,3 +2,5 @@
+ Demo of Git on Aug 8, 2017
+
+ Jas is rotten
++
++Documentation is even MORE awesome!
+stack[20:39:32](0)(master)~/src/uclug$ git log
+commit 8262d96442cbaa099e8726aed3cfc20b593f1383
+Merge: d31457f 499630f
+Author: Jas Eckard <eckard@clemson.edu>
+Date:   Tue Aug 8 20:26:28 2017 -0400
+
+    No, he's really rotten
+
+commit d31457f9c1f3adf1b17fd15b292ad5146ff6dd72
+Author: Jas Eckard <eckard@clemson.edu>
+Date:   Tue Aug 8 20:22:50 2017 -0400
+
+    That no-good Jas
+
+commit 499630f78b91ce29ff621a43c2d23477dde33f60
+Author: Jonathan Nalley <jonathan@gogreencloud.com>
+Date:   Wed Aug 9 00:19:40 2017 +0000
+
+    documenting readme changes is very meta
+
+commit 98dd036c3651e3999a6b1be472857a80d0c949b1
+Author: Jas Eckard <eckard@clemson.edu>
+Date:   Tue Aug 8 20:18:22 2017 -0400
+
+    Everyone needs to know about Jas
+
+commit 150ad351adfc899db3ccb43e5272be9791c70cd0
+Author: Jas Eckard <eckard@clemson.edu>
+Date:   Tue Aug 8 20:08:21 2017 -0400
+
+    Added Jas' vimrc
+
+commit e11e1ef880df955018e27f3eeab63cbddc7ec846
+Author: chruck <jas+github@eckard.com>
+Date:   Tue Aug 8 20:05:07 2017 -0400
+
+    Initial commit
+stack[20:39:46](0)(master)~/src/uclug$ git diff e11e1ef README.md               diff --git a/README.md b/README.md
+index 7b94733..925eb48 100644
+--- a/README.md
++++ b/README.md
+@@ -1,2 +1,6 @@
+ # uclug
+ Demo of Git on Aug 8, 2017
++
++Jas is rotten
++
++Documentation is even MORE awesome!
+stack[20:40:06](0)(master)~/src/uclug$ git branch
+* master
+stack[20:40:36](0)(master)~/src/uclug$ git checkout -b testing
+Switched to a new branch 'testing'
+stack[20:41:05](0)(testing)~/src/uclug$ git branch
+  master
+* testing
+stack[20:41:11](0)(testing)~/src/uclug$ echo $PS1
+\[\033[40m\]\[\033[33m\]\h\[\033[1;33m\][\t]\[\033[1;34m\]($?)\[\033[1;35m\]$(git_branch)\[\033[1;36m\]\w\[\033[31m\]\$\[\033[0m\]
+stack[20:41:42](0)(testing)~/src/uclug$ which git_branch
+type:  git_branch is a function
+git_branch ()
+{
+    "${GIT}" branch 2> /dev/null | ${SED} '/^[^*]/d;s/* \(.*\)/(\1)/'
+}
+stack[20:41:52](1)(testing)~/src/uclug$ git branch
+  master
+* testing
+stack[20:42:15](0)(testing)~/src/uclug$ git branch
+  master
+* testing
+stack[20:42:39](0)(testing)~/src/uclug$ git checkout master
+Switched to branch 'master'
+Your branch is up-to-date with 'origin/master'.
+stack[20:42:52](0)(master)~/src/uclug$ git branch
+* master
+  testing
+stack[20:42:57](0)(master)~/src/uclug$ git checkout testing
+Switched to branch 'testing'
+stack[20:43:13](0)(testing)~/src/uclug$ git branch
+  master
+* testing
+stack[20:43:21](0)(testing)~/src/uclug$ vi
+.git/       .gitignore  .vimrc.jas  LICENSE     README.md   README.md~
+stack[20:43:21](0)(testing)~/src/uclug$ vi .git
+.git/       .gitignore
+stack[20:43:21](0)(testing)~/src/uclug$ vi .gitignore
+
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+stack[20:44:59](0)(testing)~/src/uclug$ echo "this is a dkms.conf" > dkms.conf
+stack[20:45:19](0)(testing)~/src/uclug$ ls -l
+total 48
+-rw-rw-r-- 1 jas jas 35141 Aug  8 20:05 LICENSE
+-rw-rw-r-- 1 jas jas    87 Aug  8 20:25 README.md
+-rw-rw-r-- 1 jas jas   172 Aug  8 20:24 README.md~
+-rw-rw-r-- 1 jas jas    20 Aug  8 20:45 dkms.conf
+stack[20:45:21](0)(testing)~/src/uclug$ git status
+On branch testing
+nothing to commit, working directory clean
+stack[20:45:27](0)(testing)~/src/uclug$ vi
+vi                   vim.gtk              virt-login-shell
+vieet                vim.tiny             virt-pki-validate
+view                 vimdiff              virt-xml-validate
+viewres              vimplate             virtfs-proxy-helper
+vigr                 vimtutor             virtlockd
+vim                  vipw                 virtlogd
+vim-addon-manager    virsh                virtualbox
+vim-addons           virt-admin           visudo
+vim.basic            virt-host-validate
+stack[20:45:27](0)(testing)~/src/uclug$ vi
+~
+~                              VIM - Vi IMproved
+~
+~                               version 7.4.1689
+~                           by Bram Moolenaar et al.
+~           Modified by pkg-vim-maintainers@lists.alioth.debian.org
+~                 Vim is open source and freely distributable
+~
+~                        Become a registered Vim user!
+~                type  :help register<Enter>   for information
+~
+~                type  :q<Enter>               to exit
+~                type  :help<Enter>  or  <F1>  for on-line help
+~                type  :help version7<Enter>   for version info
+~
+~
+
+stack[20:48:55](0)(testing)~/src/uclug$ find .git
+.git
+.git/refs
+.git/refs/heads
+.git/refs/heads/master
+.git/refs/heads/testing
+.git/refs/tags
+.git/refs/remotes
+.git/refs/remotes/origin
+.git/refs/remotes/origin/HEAD
+.git/refs/remotes/origin/master
+.git/hooks
+.git/hooks/pre-applypatch.sample
+.git/hooks/prepare-commit-msg.sample
+.git/hooks/commit-msg.sample
+.git/hooks/pre-rebase.sample
+.git/hooks/post-update.sample
+.git/hooks/pre-commit.sample
+.git/hooks/update.sample
+.git/hooks/pre-push.sample
+.git/hooks/applypatch-msg.sample
+.git/info
+.git/info/exclude
+.git/branches
+.git/description
+.git/objects
+.git/objects/pack
+.git/objects/pack/pack-2e185af20655f9edafa195b8159ef6d7540faaf7.pack
+.git/objects/pack/pack-2e185af20655f9edafa195b8159ef6d7540faaf7.idx
+.git/objects/info
+.git/objects/d6
+.git/objects/d6/9b4ea6e77a5cfcdbb9bef3e81e99fd91c4b03c
+.git/objects/a4
+.git/objects/a4/dadd574e24aca3dbc2b53b0720a123015ebc1f
+.git/objects/15
+.git/objects/15/0ad351adfc899db3ccb43e5272be9791c70cd0
+.git/objects/95
+.git/objects/95/091a077bbe84a7cef6a2878f8ba867f624e446
+.git/objects/bd
+.git/objects/bd/ba121feff00a6be1ca86eef32b9ab9a20d6205
+.git/objects/d3
+.git/objects/d3/1457f9c1f3adf1b17fd15b292ad5146ff6dd72
+.git/objects/49
+.git/objects/49/9630f78b91ce29ff621a43c2d23477dde33f60
+.git/objects/98
+.git/objects/98/dd036c3651e3999a6b1be472857a80d0c949b1
+.git/objects/53
+.git/objects/53/8b45fcd82340994e55b15dac653e02d7291bc6
+.git/objects/3c
+.git/objects/3c/d9eeb6074af34a8caede3550990c55f0cf728f
+.git/objects/fa
+.git/objects/fa/d2a04887a926722a2570d5b393d3d4d1921e60
+.git/objects/8a
+.git/objects/8a/75fcee74d908b580cce8b41c9eeaecb4e7a6ce
+.git/objects/e6
+.git/objects/e6/d01b9a399e7b627974a45e4b281e7d7ee8d59d
+.git/objects/92
+.git/objects/92/5eb4886151f211e29fc75cb7a873734ba88449
+.git/objects/ba
+.git/objects/ba/0a086f43d566b3552ce299984c208310db0d82
+.git/objects/82
+.git/objects/82/62d96442cbaa099e8726aed3cfc20b593f1383
+.git/packed-refs
+.git/logs
+.git/logs/refs
+.git/logs/refs/remotes
+.git/logs/refs/remotes/origin
+.git/logs/refs/remotes/origin/HEAD
+.git/logs/refs/remotes/origin/master
+.git/logs/refs/heads
+.git/logs/refs/heads/master
+.git/logs/refs/heads/testing
+.git/logs/HEAD
+.git/config
+.git/COMMIT_EDITMSG
+.git/FETCH_HEAD
+.git/ORIG_HEAD
+.git/index
+.git/HEAD
+stack[20:49:04](0)(testing)~/src/uclug$
